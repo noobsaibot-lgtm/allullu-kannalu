@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Story ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffc0cb;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 600px;
+      padding: 20px;
+      background: rgba(255, 182, 193, 0.3);
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(255,255,255,0.4);
+    }
+
+    h2 {
+      font-size: 2em;
+    }
+
+    img {
+      width: 250px;
+      border-radius: 20px;
+      margin: 20px 0;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+      transition: 0.5s ease;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: white;
+      color: #ff69b4;
+      cursor: pointer;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #ffe4e1;
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      color: #ff69b4;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    /* Twinkle Effect */
+    .twinkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px white;
+      animation: sparkle 2s infinite ease-in-out;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container">
+    <h2 id="title">Chapter 1</h2>
+    <p id="text">The day we first met… everything changed.</p>
+    <img id="image" src="https://i.imgur.com/1Xq9BiP.png" alt="Milk Mocha" />
+    <br />
+    <button onclick="nextChapter()">Next ➡️</button>
+  </div>
+
+  <script>
+    const chapters = [
+      {
+        title: "Chapter 1",
+        text: "The day we first met… everything felt different.",
+        image: "https://i.imgur.com/1Xq9BiP.png"
+      },
+      {
+        title: "Chapter 2",
+        text: "We started talking… and suddenly, hours felt like minutes.",
+        image: "https://i.imgur.com/3ZQ3Z7p.png"
+      },
+      {
+        title: "Chapter 3",
+        text: "Somewhere along the way… you became my favorite person.",
+        image: "https://i.imgur.com/jV4pP9H.png"
+      },
+      {
+        title: "Chapter 4",
+        text: "And now… I can’t imagine a day without you ❤️",
+        image: "https://i.imgur.com/WP6ZQwQ.png"
+      }
+    ];
+
+    let index = 0;
+
+    function nextChapter() {
+      index++;
+      if (index >= chapters.length) index = 0;
+
+      const img = document.getElementById("image");
+      img.style.opacity = 0;
+
+      setTimeout(() => {
+        document.getElementById("title").innerText = chapters[index].title;
+        document.getElementById("text").innerText = chapters[index].text;
+        img.src = chapters[index].image;
+        img.style.opacity = 1;
+      }, 300);
+    }
+
+    // Music play fix
+    document.body.addEventListener('click', () => {
+      const music = document.getElementById("bg-music");
+      music.play().catch(() => {});
+    });
+
+    // Generate floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (10 + Math.random() * 20) + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 400);
+
+    // Generate twinkles
+    function createTwinkle() {
+      const twinkle = document.createElement("div");
+      twinkle.classList.add("twinkle");
+      twinkle.style.left = Math.random() * 100 + "vw";
+      twinkle.style.top = Math.random() * 100 + "vh";
+      document.body.appendChild(twinkle);
+
+      setTimeout(() => {
+        twinkle.remove();
+      }, 2000);
+    }
+
+    setInterval(createTwinkle, 300);
+  </script>
+</body>
+</html>
